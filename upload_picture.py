@@ -46,7 +46,6 @@ BODY_TEXT = ("To whom it may concern,\r\n"
              "We may have picked up suspicious activity on the premises near your device. To secure your belongings, "
              "we would recommend taking appropriate actions in order to ensure this individual is someone you know."
 )
-
 BODY_HTML = """<html>
 <head></head>
 <body>
