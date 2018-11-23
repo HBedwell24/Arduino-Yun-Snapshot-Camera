@@ -31,9 +31,10 @@ void loop() {
     Serial.println("File successfully saved locally!");
 
     // Upload to Amazon S3
-    picture.runShellCommand("python " + path + " " + path + filename);
+    picture.runShellCommand("python " + path + "upload_picture.py " + path + filename);
     while(picture.running());
-}
+    Serial.println("File successfully uploaded!");
+  }
 }
 
 
