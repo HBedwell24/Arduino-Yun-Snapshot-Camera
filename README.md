@@ -5,5 +5,5 @@ A UVC compatible camera is triggered by a PIR motion sensor to store a .png imag
 Source Code
 ------------------------------------------------------------------
 To get the software side of the project up and running:
-1. Ensure that upload_picture.py (located under 'src') has been stored under the root of the microSD card along with Temboo's Python SDK libaries (which can be found at https://temboo.com/python).
-2. Verify that the 'sketch.ino' file has been transferred to the Arduino via USB or Wi-Fi respectively.
+1.  Ensure that upload_picture.py (located under 'src') has been stored under the root of the microSD card along with Temboo's Python SDK libaries (which can be found at https://temboo.com/python).
+2.  Verify that the 'sketch.ino' file has been transferred to the Arduino via USB or Wi-Fi respectively.
