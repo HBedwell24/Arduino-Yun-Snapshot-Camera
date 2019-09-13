@@ -2,7 +2,7 @@ Facial Recognition Web Enabled Camera
 ==================================================================
 A UVC compatible camera is triggered by a PIR motion sensor to store a .png image on an Arduino Yun. After this task has been completed, the image is then uploaded to Amazon S3 (to be compared on an image to image basis with existing records in the opposing S3 bucket). If a face is captured that does not exist in the collection, a lambda function is triggered, which sends a warning message to the user.
 
-The Materials Needed For Assembly
+Materials Checklist
 ------------------------------------------------------------------
 To assemble the device, the hardware for assembly will require that one has possession of an Arduino Yun Rev 2, a Lynxmotion pan and tilt kit, a full sized breadboard, a microSD with a variable amount of memory (the size is up to the user), a microSD to SD converter, a UVC compatible camera (for our project, we utilized a Logitech C270), a PIR motion sensor with 3 outward facing female headers, a 5V battery pack, 4 rechargeable batteries, at least a dozen Female to Male Jumper Wires (in order to fulfill the connections between the motion sensor and the Yun microcontroller), and a least a dozen of Male to Male cables (which will serve as the connection between the Arduino to the full sized breadboard, not to mention help other components such as the battery pack provide amperage needed to power servos found in the pan and tilt kit). It would also be beneficial to have a type B micro USB cable or a 5V DC 2A wall adapter (also Micro-USB type B) on hand for when the sketch upload takes place to the Arduino, as well as for installing updates on the microcontroller via SSH. 
 
