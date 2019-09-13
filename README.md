@@ -5,16 +5,18 @@ A UVC compatible camera is triggered by a PIR motion sensor to store a .png imag
 Device Assembly
 ------------------------------------------------------------------
 To assemble the device, the hardware for assembly will require that one has possession of an Arduino Yun Rev 2, a Lynxmotion pan and tilt kit, a full sized breadboard, a microSD with a variable amount of memory (the size is up to the user), a microSD to SD converter, a UVC compatible camera (for our project, we utilized a Logitech C270), a PIR motion sensor with 3 outward facing female headers, a 5V battery pack, 4 rechargeable batteries, at least a dozen Female to Male Jumper Wires (in order to fulfill the connections between the motion sensor and the Yun microcontroller), and a least a dozen of Male to Male cables (which will serve as the connection between the Arduino to the full sized breadboard, not to mention help other components such as the battery pack provide amperage needed to power servos found in the pan and tilt kit). It would also be beneficial to have a type B micro USB cable or a 5V DC 2A wall adapter (also Micro-USB type B) on hand for when the sketch upload takes place to the Arduino, as well as for installing updates on the microcontroller via SSH. 
+
 After one has acquired the various materials needed to start on building the device, it is probably most easiest to start with connecting to the Arduino Yun in order to get setting it up out of the way. To complete this process, first connect the small end of the micro USB cable into the respective port on the Arduino Yun, and the other end into a computer. After this, make sure to wait at least 60 seconds for the Arduino Yun to boot up. This event will be indicated by the blue WLAN LED turning on and/or flashing. In addition, the WiFi network will display a new network, bearing the syntax of Arduino-YUN90XXXXXX. This is the Arduino Yun’s WiFi hotspot, which will be active if the microcontroller has not been previously connected to WiFi (by factory default). Connect to the hotspot, open a browser, and visit arduino.local. If this doesn’t work, then visit 192.168.240.1. Once the landing page has been reached, proceed to the configure button in the top right. It is here where the Arduino Yun’s name, password, and/or network connection will be altered, and will be vital to the moment in time when SSH is needed to run updates on the devices MAC Address. In the context of this project, it is recommended that one connects to the same network that their computer is on, to make matters easier later. As an added note, it will also be handy to have explicit access to the router control panel on that particular network, since it will make port forwarding a breeze if you are planning on utilizing WiFi to access the device globally. With this in mind, make all necessary changes, and then proceed to opening up a terminal of choice on the computer. 
+
 In the command line, enter ssh root@arduino.local (or root@yourarduinoname.local if the name of the Yun was changed in an earlier step), followed by Yes to add the Yun as a known host. The program will ask for a password, in which one would pass in the credentials found earlier on the Yun’s configure page. Once successfully SSHed, the user is now in a position to run the necessary updates in order to ensure the projects’ successful operation. These commands can be found as follows:
 
 package manager update:
-'''sh
+'''console
 opkg update
 '''
 
 UVC drivers:
-'''sh
+'''console
 opkg install kmod-video-uvc
 '''
 
