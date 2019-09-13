@@ -1,6 +1,6 @@
 Facial Recognition Web Enabled Camera
 ==================================================================
-A UVC compatible camera is triggered by a PIR motion sensor to store a .png image on an Arduino Yun. After this task has been completed, the image is then uploaded to Amazon S3 (to be compared on an image to image basis with existing records in the opposing S3 bucket). If a face is captured that does not exist in the collection, a lambda function is triggered, which sends a warning message to the user.
+A cloud security device tasked with monitoring a given premise for suspicious activity, using a whitelist of known faces stored in Amazon S3 for reference. Faces that are detected using the device’s onboard PIR motion sensor are saved locally to an Arduino Yun via microSD card (as prescribed in the Arduino’s C/C++ codebase) and are then uploaded to AWS using Temboo’s Python SDK, to be analyzed by Amazon Rekognition accordingly. 
 
 Materials Checklist
 ------------------------------------------------------------------
