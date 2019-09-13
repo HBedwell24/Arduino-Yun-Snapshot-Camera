@@ -11,29 +11,29 @@ After one has acquired the various materials needed to start on building the dev
 In the command line, enter ssh root@arduino.local (or root@yourarduinoname.local if the name of the Yun was changed in an earlier step), followed by Yes to add the Yun as a known host. The program will ask for a password, in which one would pass in the credentials found earlier on the Yun’s configure page. Once successfully SSHed, the user is now in a position to run the necessary updates in order to ensure the projects’ successful operation. These commands can be found as follows:
 
 package manager update:
-'''console
+```console
 opkg update
-'''
+```
 
 UVC drivers:
-'''console
+```console
 opkg install kmod-video-uvc
-'''
+```
 
 Python-openssl package:
-'''sh
+```sh
 opkg install python-openssl
-'''
+```
 
 fswebcam utility:
-'''sh
+```sh
 opkg install fswebcam
-'''
+```
 
 mjpg streaming library:
-'''sh
+```sh
 opkg install mjpg-streamer
-'''
+```
  
 After all of the necessary software-side upgrades to the Yun have been taken care of, it is of the utmost importance that one checks that the necessary ports have been declared in the uhttpd file in order for the device to be accessible anywhere. To access this file, simply type ‘cd /etc/config/’, followed by ‘vi uhttpd’. Listed at the top of the page should be the listen address(es) that the Arduino Yun has been configured to monitor for traffic. Press the key ‘i’ on your keyboard to switch over to insert mode in the vi editor, and then make your way below the existing port listings. Using the same formatting found above, insert a new http listen address which will correspond to your desired port (for our project, we went with port 8000, though results can vary based on your network environment). Once this file has been edited to your liking, press ‘ESC’ to leave insert mode, and then type ‘:wq!’ to save the file. 
 After this feat has been accomplished, one can then proceed to the control panel of their router, to which the device will then need to be assigned a static private IP. Since the onboard WiFi module located on the Yun comes with a MAC address by default, the router can be configured to recognize the Yun everytime it is configured to the same network. This is important, for the reason that ports can be forwarded to the private IP address of choice without any inconsistencies occuring in the near future. The port, once forwarded to the address, can allow the device to be accessed on the router’s public IP, which allows for multiple devices to be hosted on the same public IP, especially if many devices are competing for a wall jack that has more lax rules as far as port restrictions go.
