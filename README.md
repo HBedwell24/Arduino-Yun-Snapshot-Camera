@@ -11,12 +11,12 @@ After one has acquired the various materials needed to start on building the dev
 In the command line, enter ssh root@arduino.local (or root@yourarduinoname.local if the name of the Yun was changed in an earlier step), followed by Yes to add the Yun as a known host. The program will ask for a password, in which one would pass in the credentials found earlier on the Yun’s configure page. Once successfully SSHed, the user is now in a position to run the necessary updates in order to ensure the projects’ successful operation. These commands can be found as follows:
 
 package manager update:
-```console
+```sh
 opkg update
 ```
 
 UVC drivers:
-```console
+```sh
 opkg install kmod-video-uvc
 ```
 
