@@ -1,4 +1,4 @@
-Facial Recognition Web Enabled Camera
+Facial Recognition Web Enabled Camera (Version 1)
 ==================================================================
 A cloud security device tasked with monitoring a given premise for suspicious activity, using a whitelist of known faces stored in Amazon S3 for reference. Faces that are detected using the device’s onboard PIR motion sensor are saved locally to an Arduino Yun via microSD card (as prescribed in the Arduino’s C/C++ codebase) and are then uploaded to AWS using Temboo’s Python SDK, to be analyzed by Amazon Rekognition accordingly. 
 
@@ -211,12 +211,10 @@ def lambda_handler(event, context):
 	
     except Exception as e:
         print(e)
-        print("Error processing object {} from bucket {}. 					".format(key, bucket))
+        print("Error processing object {} from bucket {}.".format(key, bucket))
         raise e
 ```
 
-Source Code
-------------------------------------------------------------------
-To get the software side of the local project up and running:
-1. Ensure that upload_picture.py (located under 'src') has been stored under the root of the microSD card along with Temboo's Python SDK libaries (which can be found at https://temboo.com/python).
-2. Verify that the 'sketch.ino' file has been successfully transferred to the Arduino via USB or Wi-Fi respectively.
+Wrapping It Up
+-------------------------------------------------------------
+Though this is only the penultimate step to having the device completely set up, much of the work with regards to the device has already been completed as of this point. In order to see the device in action, simply open up a window in Arduino IDE, and paste the code from sketch.ino in. To guarantee that the imports are fully functional, make sure to have the Temboo Python SDK stored on the root of the SD card (along with upload_picture.py), before transferring it over to the board. One will also need to have possession of a Temboo account, for the reason that this service is used in order to facilitate the image upload process. The parameters specified to upload_picture.py will vary with respect to what AWS/Temboo account one is on, and hence, have been left as variables for the user to fill in. Once the above conditions have been met, ensure that the correct microcontroller and port are selected under the tools menu, place the microSD card back into the microcontroller, and then proceed to verify/upload the sketch.
