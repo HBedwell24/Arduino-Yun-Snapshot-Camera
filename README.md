@@ -50,10 +50,10 @@ After all of the necessary software-side upgrades to the Yun have been taken car
 Adding Cloud Functionality (feat @rwchinn)
 -----------------------------------------------------------------
 By migrating over to the Internet of Things part of this project, it can be found that the entirety of the facial recognition tasks were performed with assets from Amazon Web Services (AWS). Included in this process were the following AWS services: Amazon S3, AWS Lambda Indexer, Amazon Dynamodb, and Amazon Rekognition. For this project, Python and AWS CLI were used to implement these assets. Any user or role that executes commands related to the AWS services need, at a minimum, the following managed policies:
-..* AmazonRekognitionFullAccess
-..* AmazonDynamoDBFullAccess
-..* AmazonS3FullAccess
-..* IAMFullAccess
+- AmazonRekognitionFullAccess
+- AmazonDynamoDBFullAccess
+- AmazonS3FullAccess
+- IAMFullAccess
 	
 Implementation begins with creating a whitelist of facial profiles to be used by Rekognition. This list will be used for various use cases, such as matching a face to a collection, and verifying an identity based on facial matching. In the AWS CLI:
 
