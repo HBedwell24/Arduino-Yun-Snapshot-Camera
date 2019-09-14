@@ -45,6 +45,8 @@ opkg install mjpg-streamer
 
 After all of the necessary software-side upgrades to the Yun have been taken care of, it is at this point that the construction of the device can begin to occur. The construction phase, which is much more simplistic in nature compared to the steps seen prior, is comprised of inserting the microSD card into the Arduino board, connecting the camera to the USB port of the Yun, and running the Female to Male jumper wires from the PIR motion sensor to the Yun (where the VCC pin goes to the Yun 5V pin, GND goes to GND, and the SIG pin goes to the Yun pin number 8). A visual reference to this process can be found as follows.
 
+![Arduino Yun](images/arduino-yun.jpg?raw=true "Wiring the Arduino Yun to the PIR Motion Sensor")
+
 Adding Cloud Functionality (feat @rwchinn)
 -----------------------------------------------------------------
 By migrating over to the Internet of Things part of this project, it can be found that the entirety of the facial recognition tasks were performed with assets from Amazon Web Services (AWS). Included in this process were the following AWS services: Amazon S3, AWS Lambda Indexer, Amazon Dynamodb, and Amazon Rekognition. For this project, Python and AWS CLI were used to implement these assets. Any user or role that executes commands related to the AWS services need, at a minimum, the following managed policies:
