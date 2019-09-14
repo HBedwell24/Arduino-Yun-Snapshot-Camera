@@ -47,7 +47,7 @@ After all of the necessary software-side upgrades to the Yun have been taken car
 
 ![Arduino Yun](images/arduino-yun.jpg?raw=true "Wiring the Arduino Yun to the PIR Motion Sensor")
 
-Adding Cloud Functionality (feat @rwchinn)
+Adding Cloud Functionality (feat. @rwchinn)
 -----------------------------------------------------------------
 By migrating over to the Internet of Things part of this project, it can be found that the entirety of the facial recognition tasks were performed with assets from Amazon Web Services (AWS). Included in this process were the following AWS services: Amazon S3, AWS Lambda Indexer, Amazon Dynamodb, and Amazon Rekognition. For this project, Python and AWS CLI were used to implement these assets. Any user or role that executes commands related to the AWS services need, at a minimum, the following managed policies:
 - AmazonRekognitionFullAccess
