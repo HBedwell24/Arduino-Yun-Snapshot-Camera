@@ -57,13 +57,13 @@ Implementation begins with creating a whitelist of facial profiles to be used by
 
 ```sh
 aws rekognition create-collection \
---collection-id chinncollectionfaces --region us-east-1
+--collection-id collectionfaces --region us-east-1
 ```
 
 An Amazon DynamoDB table is used to maintain a key-value store to reference the FaceId returned from Rekognition to the full name of the person.
 
 ```sh
-aws dynamodb create-table --table-name chinncollectionfaces \
+aws dynamodb create-table --table-name collectionfaces \
 --attribute-definitions AttributeName=RekognitionId,AttributeType=S \
 --key-schema AttributeName=RekognitionId,KeyType=HASH \
 --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
@@ -73,7 +73,7 @@ aws dynamodb create-table --table-name chinncollectionfaces \
 Images for Rekognition to process can be provided as bytes or made available to Rekognition through an Amazon S3 bucket. In the first iteration of this project, a bucket was created to handle the images to which the collection was populated with.
 
 ```sh
-aws s3 mb s3://chinnbucketfaces --region us-east-1
+aws s3 mb s3://bucketfaces --region us-east-1
 ```
 	
 The following policies are needed to create an IAM role for Amazon Lambda to access the Amazon S3 and access the images. Two JSON documents are needed.
@@ -114,7 +114,7 @@ The following policies are needed to create an IAM role for Amazon Lambda to acc
                 "s3:GetObject"
             ],
             "Resource": [
-                "arn:aws:s3:::chinnbucketfaces/*"
+                "arn:aws:s3:::bucketfaces/*"
             ]
         },
         {
@@ -123,7 +123,7 @@ The following policies are needed to create an IAM role for Amazon Lambda to acc
                 "dynamodb:PutItem"
             ],
             "Resource": [
-                "arn:aws:dynamodb:us-east-1:854134920532:table/chinncollectionfaces"
+                "arn:aws:dynamodb:us-east-1:872134920592:table/collectionfaces"
             ]
         },
         {
@@ -136,7 +136,85 @@ The following policies are needed to create an IAM role for Amazon Lambda to acc
     ]
 }
 ```
- 
+
+The IAM role is then created with the following AWS CLI commands:
+```sh
+aws iam create-role --role-name LambdaRekognitionRole \
+--assume-role-policy-document file://trust-policy.json
+```
+```sh
+aws iam put-role-policy --role-name LambdaRekognitionRole \
+--policy-name LambdaPermissions --policy-document \	
+file://access-policy.json
+```
+The Lambda function is triggered when an image is placed into the S3 bucket that was initially created. When triggered, it uses Amazon Rekognition IndexFaces API to detect the face in the image and adds it to the specified collection. It then stores the name of the person along with the FaceId in the DynamoDB table for future use. The following code for the Lambda function is written in Python 2.7.
+
+```python
+from __future__ import print_function
+
+import boto3
+from decimal import Decimal
+import json
+import urllib
+
+print('Loading function')
+
+dynamodb = boto3.client('dynamodb')
+s3 = boto3.client('s3')
+rekognition = boto3.client('rekognition')
+
+# --------------- Helper Functions ------------------
+
+def index_faces(bucket, key):
+
+    response = rekognition.index_faces(
+        Image={"S3Object":
+            {"Bucket": bucket,
+            "Name": key}},
+            CollectionId="family_collection")
+    return response
+    
+def update_index(tableName,faceId, fullName):
+    response = dynamodb.put_item(
+        TableName=tableName,
+        Item={
+            'RekognitionId': {'S': faceId},
+            'FullName': {'S': fullName}
+            }
+        ) 
+    
+# --------------- Main handler ------------------
+
+def lambda_handler(event, context):
+
+    # Get the object from the event
+    bucket = event['Records'][0]['s3']['bucket']['name']
+    key = urllib.unquote_plus(
+        event['Records'][0]['s3']['object']['key'].encode('utf8'))
+
+    try:
+        # Calls Amazon Rekognition IndexFaces API to detect faces in 	
+        # S3 object to index faces into specified collection
+        response = index_faces(bucket, key)
+        
+        # Commit faceId and full name object metadata to DynamoDB
+        if response['ResponseMetadata']['HTTPStatusCode'] == 200:
+            faceId = response['FaceRecords'][0]['Face']['FaceId']
+            ret = s3.head_object(Bucket=bucket,Key=key)
+            personFullName = ret['Metadata']['fullname']
+            update_index('family_collection',faceId,personFullName)
+
+        # Print response to console
+        print(response)
+
+        return response
+	
+    except Exception as e:
+        print(e)
+        print("Error processing object {} from bucket {}. 					".format(key, bucket))
+        raise e
+```
+
 Source Code
 ------------------------------------------------------------------
 To get the software side of the local project up and running:
