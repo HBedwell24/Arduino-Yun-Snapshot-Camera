@@ -4,13 +4,13 @@ A cloud security device tasked with monitoring a given premise for suspicious ac
 
 Materials Checklist
 -----------------------------------------------------------------
-* [x] Arduino Yun Rev 2
-* [x] 4GB MicroSD Card
-* [x] MicroSD to SD Converter
-* [x] UVC Compatible Camera (i.e. Logitech C270)
-* [x] PIR Motion Sensor With 3 Outward Facing Female Headers
+* [x] Arduino Yun Rev 2 (x1)
+* [x] 4GB MicroSD Card (x1)
+* [x] MicroSD to SD Converter (x1)
+* [x] Logitech C270 (x1)
+* [x] PIR Motion Sensor With 3 Outward Facing Female Headers (x1)
 * [x] A Dozen Female to Male Jumper Wires
-* [x] Type B Micro USB Cable
+* [x] Type B Micro USB Cable (x1)
 
 Configuring The Device
 -----------------------------------------------------------------
