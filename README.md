@@ -9,7 +9,9 @@ Materials Checklist
 * [x] MicroSD to SD Converter (x1)
 * [x] Logitech C270 (x1)
 * [x] PIR Motion Sensor With 3 Outward Facing Female Headers (x1)
-* [x] A Dozen Female to Male Jumper Wires
+* [x] Red Female/Male Jumper Wires (x1)
+* [x] Black Female/Male Jumper Wires (x1)
+* [x] Yellow Female/Male Jumper Wires (x1)
 * [x] Type B Micro USB Cable (x1)
 
 Configuring The Device
