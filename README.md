@@ -10,8 +10,8 @@ A cloud security device tasked with monitoring a given premise for suspicious ac
     * [FSWebcam Utility](#fswebcam-utility)
     * [MJPG Streaming Library](#mjpg-streaming-library)
 * [Enabling Cloud Functionality](#enabling-cloud-functionality)
-    * [trust-policy.json](#trust-policy.json)
-    * [access-policy.json](#access-policy.json)
+    * [trust-policy.json](#trust-policyjson)
+    * [access-policy.json](#access-policyjson)
 * [Wrapping It Up](#wrapping-it-up)
 
 ## Materials Checklist
