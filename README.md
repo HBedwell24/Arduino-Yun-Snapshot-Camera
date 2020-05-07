@@ -1,7 +1,20 @@
 # Facial Recognition Web Enabled Camera (Version 1)
 A cloud security device tasked with monitoring a given premise for suspicious activity, using a whitelist of known faces stored in Amazon S3 for reference. Faces that are detected using the device’s onboard PIR motion sensor are saved locally to an Arduino Yun via microSD card (as prescribed in the Arduino’s C/C++ codebase) and are then uploaded to AWS using Temboo’s Python SDK, to be analyzed by Amazon Rekognition accordingly. 
 
-## 1. Materials Checklist
+## Table of Contents
+* [Materials Checklist](#materials-checklist)
+* [Configuring the Device](#configuring-the-device)
+    * [Package Manager Update](#package-manager-update)
+    * [UVC Drivers](#uvc-drivers)
+    * [Python OpenSSL Package](#python-openssl-package)
+    * [FSWebcam Utility](#fswebcam-utility)
+    * [MJPG Streaming Library](#mjpg-streaming-library)
+* [Enabling Cloud Functionality](#enabling-cloud-functionality)
+    * [trust-policy.json](#trust-policy.json)
+    * [access-policy.json](#access-policy.json)
+* [Wrapping It Up](#wrapping-it-up)
+
+## Materials Checklist
 * [x] Arduino Yun Rev 2 (x1)
 * [x] 4GB MicroSD Card (x1)
 * [x] MicroSD to SD Converter (x1)
@@ -12,7 +25,7 @@ A cloud security device tasked with monitoring a given premise for suspicious ac
 * [x] Yellow Female/Male Jumper Wires (x1)
 * [x] Type B Micro USB Cable (x1)
 
-## 2. Configuring The Device
+## Configuring The Device
 After one has acquired the various materials needed to start on building the device, it is probably easiest to start with connecting to the Arduino Yun in order to get setting it up out of the way. To complete this process, first connect the small end of the micro USB cable into the respective port on the Arduino Yun, and the other end into a computer. After this, make sure to wait at least 60 seconds for the Arduino Yun to boot up. This event will be indicated by the blue WLAN LED turning on and/or flashing. In addition, the WiFi network will display a new network, bearing the syntax of Arduino-YUN90XXXXXX. This is the Arduino Yun’s WiFi hotspot, which will be active if the microcontroller has not been previously connected to WiFi (by factory default). Connect to the hotspot, open a browser, and visit arduino.local. If this doesn’t work, then visit 192.168.240.1. 
 
 Once the landing page has been reached, proceed to the configure button in the top right. It is here where the Arduino Yun’s name, password, and/or network connection will be altered, and will be vital to the moment in time when SSH is needed to run updates on the devices MAC Address. Make all necessary changes, and then proceed to opening up a terminal of choice on the computer. 
@@ -48,7 +61,7 @@ After all of the necessary software-side upgrades to the Yun have been taken car
 
 ![Arduino Yun](images/arduino-yun.jpg?raw=true "Wiring the Arduino Yun to the PIR Motion Sensor")
 
-## 3. Adding Cloud Functionality (feat. @rwchinn)
+## Enabling Cloud Functionality
 By migrating over to the Internet of Things part of this project, it can be found that the entirety of the facial recognition tasks were performed with assets from Amazon Web Services (AWS). Included in this process were the following AWS services: Amazon S3, AWS Lambda Indexer, Amazon Dynamodb, and Amazon Rekognition. For this project, Python and AWS CLI were used to implement these assets. Any user or role that executes commands related to the AWS services need, at a minimum, the following managed policies:
 - AmazonRekognitionFullAccess
 - AmazonDynamoDBFullAccess
@@ -217,5 +230,5 @@ def lambda_handler(event, context):
         raise e
 ```
 
-## 4. Wrapping It Up
+## Wrapping It Up
 Though this is only the penultimate step to having the device completely set up, much of the work with regards to the device has already been completed as of this point. In order to see the device in action, simply open up a window in Arduino IDE, and paste the code from the 'src' folder in. To guarantee that the imports are fully functional, make sure to have the Temboo Python SDK stored on the root of the SD card (along with upload_picture.py), before transferring it over to the board. One will also need to have possession of a Temboo account, for the reason that this service is used in order to facilitate the image upload process. The parameters specified to upload_picture.py will vary with respect to what AWS/Temboo account one is on, and hence, have been left as variables for the user to fill in. Once the above conditions have been met, ensure that the correct microcontroller and port are selected under the tools menu, place the microSD card back into the microcontroller, and then proceed to verify/upload the sketch.
